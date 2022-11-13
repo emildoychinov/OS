@@ -8,7 +8,7 @@ int get_cursor_position(int fd, int n){
 	char a;
 	
 	if(n > file_size || n <= 0)
-		n = file_size;
+		n = file_size > 10 ? 10 : file_size;
 
 	for(int i=0; i<file_size, newlines < n+1; i++){
 		

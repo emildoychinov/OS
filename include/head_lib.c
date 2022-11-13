@@ -30,7 +30,7 @@ void lines(int fd, int n){
 	int file_lines = get_lines(fd);
 
 	if(n > file_lines || n <= 0) 
-		n = file_lines;
+		n = ( file_lines > 10) ? 10 : file_lines;
 
 	for(int i = 0; i<file_size && newline_counter < n; i++){
 		
