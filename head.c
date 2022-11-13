@@ -8,7 +8,7 @@ int main(int argc, char *argv[]){
 	}
 	
 	int fd = open(argv[1], O_RDONLY);
-	int n = stoi(argv[2]);//the number of lines that we want 
+	int n = stoi(argv[2]); //the number of lines that we want 
 
 	if(fd == -1){
 		fprintf(stderr, "no such file named %s found\n", argv[1]);
