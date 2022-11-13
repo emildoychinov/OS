@@ -12,20 +12,15 @@ int get_cursor_position(int fd, int n){
 
 	for(int i=0; i<file_size, newlines < n+1; i++){
 		
-		if( lseek(fd, -bytes * sizeof(char), SEEK_END) == -1)
-			return 0;
+		lseek(fd, -bytes * sizeof(char), SEEK_END);
 
 		int status = read(fd, &a, sizeof(char));		
 		
 		if(status == 0)
 			break;
 
-		if(a == '\n' || a == EOF){
-			
-			printf("found newline\n");
+		if(a == '\n' || a == EOF)	
 			newlines++;
-
-		}
 
 		bytes++;
 
@@ -44,12 +39,10 @@ void e_lines(int fd, int n){ //end lines
 	char a;
 	int cur_pos = get_cursor_position(fd, n);
 	
-	//if our lseek here fails we wont print out anything
-	if( lseek(fd, -cur_pos * sizeof(char), SEEK_END) == -1)
-		return;
+	lseek(fd, -cur_pos * sizeof(char), SEEK_END);
 
 	while(read(fd, &a, sizeof(char)))
-			write(1, &a, sizeof(char)); 
+		write(1, &a, sizeof(char)); 
 
 
 }

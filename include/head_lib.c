@@ -39,8 +39,8 @@ void lines(int fd, int n){
 
 		int byte = read(fd, &current_character, sizeof(char));
 		
-		if(!byte == 0)
-			break;
+		//if(!byte == 0)
+			//break;
 
 		printf("%c", current_character);
 

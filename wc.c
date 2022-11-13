@@ -1,4 +1,4 @@
-#include "wc_lib.c"
+#include "include/wc_lib.c"
 
 int main(int argc, char *argv[]){
 	

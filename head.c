@@ -1,4 +1,4 @@
-#include "head_lib.c"
+#include "include/head_lib.c"
 
 int main(int argc, char *argv[]){
 	
