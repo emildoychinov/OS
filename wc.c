@@ -14,6 +14,7 @@ int main(int argc, char *argv[]){
 	int fd = open(argv[1], O_RDONLY);
 	if(fd == -1){
 		fprintf(stderr, "cannot find such file named '%s'\n", argv[1]);
+		close(fd);
 		exit(1);
 	}
 
@@ -32,10 +33,9 @@ int main(int argc, char *argv[]){
 		fprintf(stdout, "%d\n%d\n", 
 			get_lines(fd), get_bytes(fd));
 		
-		exit(0);
 	}
 
-	if(argc >= 3){	
+	else if(argc >= 3){	
 		
 
 		if( m_strcmp(argv[2], "-l") ) {

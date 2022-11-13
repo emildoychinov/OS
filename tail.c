@@ -16,6 +16,7 @@ int main(int argc, char *argv[]){
 
 			if(argc == 3) {
 				fprintf(stderr, "expected an argument after '-n' flag\n");
+				close(fd);
 				exit(1);
 			}
 
@@ -26,12 +27,14 @@ int main(int argc, char *argv[]){
 
 		else {
 			fprintf(stderr, "flag '%s' not recognized\n", argv[2]);
+			close(fd);
 			exit(1);
 		}
 	}
 
 	if(fd == -1){
 		fprintf(stderr, "no such file named %s found\n", argv[1]);
+		close(fd);
 		exit(1);
 	}
 
