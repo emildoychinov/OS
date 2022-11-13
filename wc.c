@@ -2,8 +2,8 @@
 
 int main(int argc, char *argv[]){
 	
-	if(!argv[1]){
-		fprintf(stdout, "no arguments provided\n");
+	if(argc < 2){
+		fprintf(stderr, "no arguments provided\n");
 		exit(1);
 	}	
 	
@@ -13,20 +13,21 @@ int main(int argc, char *argv[]){
 
 	int fd = open(argv[1], O_RDONLY);
 	if(fd == -1){
-		fprintf(stdout, "cannot find such file named '%s'\n", argv[1]);
+		fprintf(stderr, "cannot find such file named '%s'\n", argv[1]);
 		exit(1);
 	}
 
 	
 
 	//i dont really check if an invalid flag is given 
-	//if that's the case our output will be either the bytes & lines of the file
-	//or either the bytes or lines (depends if we were given one flag that is valid and one that is not)
+	//if its one invalid flag we will get no output
+	//if there is a valid flag before or following the invalid one we will get either lines or bytes
 	
 
 	//these if's are a bunch of bullshit but i'm too lazy to write quality code :D
 	
-	if( !m_strcmp(argv[2], "-l") && !m_strcmp(argv[2], "-c") && !m_strcmp(argv[3], "-l") && !m_strcmp(argv[3], "-c") ) {
+	
+	if(argc < 3) {
 		
 		fprintf(stdout, "%d\n%d\n", 
 			get_lines(fd), get_bytes(fd));
@@ -34,31 +35,38 @@ int main(int argc, char *argv[]){
 		exit(0);
 	}
 
-	if( m_strcmp(argv[2], "-l") ) {
+	if(argc >= 3){	
 		
-		lines = 1;
-		fprintf(stdout, "%d\n", get_lines(fd));
 
-	}
-
-	else if( m_strcmp(argv[2], "-c") ) {
+		if( m_strcmp(argv[2], "-l") ) {
 		
-		bytes = 1;
-		fprintf(stdout, "%d\n", get_bytes(fd));
-	}
+			lines = 1;
+			fprintf(stdout, "%d\n", get_lines(fd));
 
-	if ( m_strcmp(argv[3], "-l") && lines != 1) {
-		
-		lines = 1;
-		fprintf(stdout, "%d\n", get_lines(fd));
-	}
+		}
 
-	else if( m_strcmp(argv[3], "-c") && bytes != 1){
+		else if( m_strcmp(argv[2], "-c") ) {
 		
-		bytes = 1;
-		fprintf(stdout, "%d\n", get_bytes(fd));
+			bytes = 1;
+			fprintf(stdout, "%d\n", get_bytes(fd));
+		}
+
+		if (argc >= 4) {
+			if ( m_strcmp(argv[3], "-l") && lines != 1) {
+		
+				lines = 1;
+				fprintf(stdout, "%d\n", get_lines(fd));
+			}
+
+			else if( m_strcmp(argv[3], "-c") && bytes != 1){
+			
+				bytes = 1;
+				fprintf(stdout, "%d\n", get_bytes(fd));
+			}
+		}
+
 	}	
-	
+
 	close(fd);
 
 
